@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Broadcast;
 //     return (int) $user->id === (int) $id;
 // });
 
-Broadcast::channel('messenger', function ($user) {
+Broadcast::channel('messenger.{sender}.{receiver}', function ($user) {
     return !is_null($user);
 });
 
-Broadcast::channel('group_chat.{roomId}', function ($user, $roomId) {
-    if (true) {
-        return ['id' => $user->id, 'name' => $user->name];
-    }
-});
+// Broadcast::channel('group_chat.{roomId}', function ($user, $roomId) {
+//     if (true) {
+//         return ['id' => $user->id, 'name' => $user->name];
+//     }
+// });
