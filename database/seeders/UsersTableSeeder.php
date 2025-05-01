@@ -14,10 +14,26 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('users')->truncate();
         DB::table('users')->insert([
             [
-                'name'     => 'Youness AMHIDRA',
+                'name'     => 'Mouhcine BEN-ANAYA',
                 'email'    => 'mba@mba.mba',
+                'password' => Hash::make('12341234'),
+            ],
+            [
+                'name'     => 'Youness AMHIDRA',
+                'email'    => 'younes@mba.mba',
+                'password' => Hash::make('12341234'),
+            ],
+            [
+                'name'     => 'Issam SABIR',
+                'email'    => 'issam@me.dev',
+                'password' => Hash::make('12341234'),
+            ],
+            [
+                'name'     => 'Khalid LEFHAL',
+                'email'    => 'khalid@me.dev',
                 'password' => Hash::make('12341234'),
             ],
         ]);

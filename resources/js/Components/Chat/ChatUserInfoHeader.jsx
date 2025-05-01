@@ -8,7 +8,7 @@ import { BsTelephoneFill } from 'react-icons/bs'
 
 export default function ChatUserInfoHeader() {
     return (
-        <div className="user_info_header bg-white px-5 py-3">
+        <div className="user_info_header bg-gray-800 px-5 py-3">
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <img src={Admin} className="rounded-full" width="40" />

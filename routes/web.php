@@ -35,16 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Route::group(['prefix' => 'chat', 'as' => 'chat.'], function() {
-    //     Route::get('/{receiverId?}', [ChatController::class, 'index'])->name('index');
-    //     Route::post('/{receiverId?}', [ChatController::class, 'store'])->name('store');
-    // });
-
-    Route::get('chat/{receiverId?}', [ChatController::class, 'index'])->name('chat');
-    // Route::post('chat/{receiverId?}', [ChatController::class, 'store'])->name('chat.store');
+    Route::group(['prefix' => 'chat', 'as' => 'chat.'], function () {
+        Route::get('/{receiverId?}', [ChatController::class, 'index'])->name('index');
+        Route::post('/{receiverId?}', [ChatController::class, 'store'])->name('store');
+    });
 
 });
 
 require __DIR__.'/auth.php';
-
-    // Route::get('chat/{receiverId?}', [ChatController::class, 'index'])->name('chat.index');

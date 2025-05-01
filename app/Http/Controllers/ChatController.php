@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -19,19 +20,18 @@ class ChatController extends Controller
     public function index(Request $request, ?int $receiverId = null)
     {
         $userId = $request->user()->id;
-        $messages = empty($receiverId) ? [] : $this->chat->getUserMessages($userId, $receiverId);
-
+        $messages = empty($receiverId) ? [] : $this->chat->getUserMessages((int) $request->user()->id, (int) $receiverId);
         $recentMessages = $this->chat->getRecentUsersWithMessages($userId);
 
         return Inertia::render('Chat', [
             'messages'       => $messages,
             'recentMessages' => $recentMessages,
+            'receiver'       => User::find($receiverId),
         ]);
-        
-        // dd($recentMessages);
+
     }
 
-    public function store(Request $request, int $receiverId)
+    public function store(Request $request, ?int $receiverId = null)
     {
         $userId = $request->user()->id;
         $request->validate([
@@ -53,14 +53,8 @@ class ChatController extends Controller
 
             return Redirect::route('chat.index', $receiverId);
         } catch (\Throwable $th) {
-            throw new Throwable("Error " . $th);
+            return Redirect::route('chat.index', $receiverId);
         }
-
-        // $messages = empty($receiverId) ? [] : $this->chat->getUserMessages($userId, $receiverId);
-
-        // return Inertia::render('Chat/Chat', [
-        //     'messages' => $messages,
-        // ]);
     }
-    
+
 }

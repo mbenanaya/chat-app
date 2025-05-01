@@ -1,7 +1,34 @@
-export default function ChatInput() {
-	return(
-		<div className="bg-gray-100 fixed bottom-0 w-full pl-4">
-            <textarea className="w-full bg-gray-100 border-0 outline-0 hover:border-0 focus:border-0 focus:outline-none shadow-none focus:ring-0 focus:outline pt-3 h-12 oveflow-y-auto font-light pl-4" placeholder="Write a message"></textarea>
+import { useForm } from "@inertiajs/react";
+import TextInput from "../TextInput";
+
+export default function ChatInput({ receiver }) {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        message: "",
+    });
+
+    const onHandleChange = (event) => {
+        setData(event.target.name, event.target.value);
+    };
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        // post(route("chat.store", receiver?.id));
+        console.log(data.message);
+        reset("message");
+    };
+
+    return (
+        <div className="fixed bottom-0 w-full bg-gray-700 pl-4">
+            <form onSubmit={submit}>
+                <input
+                    className="h-16 w-full overflow-y-auto bg-gray-700 pt-3 font-light border-0 hover:border-0 focus:border-0 focus:ring-0 !shadow-none focus:!outline-none"
+                    placeHolder="Write a message"
+                    name="message"
+                    value={data.message}
+                    onChange={onHandleChange}
+                />
+            </form>
         </div>
-	)
+    );
 }
